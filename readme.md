@@ -1,4 +1,4 @@
-# 🚀 Keepalived :High Availability & Load Balancing Architecture
+# 🚀 Keepalived : HA & Load Balancing Architecture
 
 ## 📑 Table of Contents
 
