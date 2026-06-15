@@ -21,6 +21,7 @@ This project demonstrates a **production-ready architecture** using three powerf
 
 Together, they create a **highly available, scalable, and fault-tolerant** system.
 
+
 ---
 
 ## 1️⃣ Concept Introduction: IP Floating, Keepalived & HAProxy
