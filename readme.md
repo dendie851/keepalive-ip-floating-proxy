@@ -1,19 +1,17 @@
-# 🚀 Keepalived : HA & Load Balancing Architecture
+# 🚀 Keepalived HA  & Load Balancing Architecture
 
 ## 📑 Table of Contents
 
-| # | Section | Description |
-|||-|
-| 📌 | [Opening](#-opening) | Engaging introduction to the problem |
-| 📂 | [Project Folder Structure](#-project-folder-structure) | Directory tree explanation |
-| 1️⃣ | [Concepts: Floating IP, Keepalived, HAProxy](#1️⃣-concept-introduction-floating-ip-keepalived-and-haproxy) | Theory and terminology |
-| 2️⃣ | [Architecture Explanation](#2️⃣-architecture-explanation) | Full architecture with diagram |
-| 3️⃣ | [Evidence Screenshots](#3️⃣-evidence-screenshots) | Step-by-step deployment proof |
-| 4️⃣ | [Benefits: Failover & Load Balancing](#4️⃣-benefits-scalability-failover--load-balancing) | Scalability advantages |
-| 5️⃣ | [Complete Infrastructure List](#5️⃣-complete-infrastructure-list) | All containers, IPs, commands |
-| 🎯 | [Conclusion](#-conclusion) | Summary and key takeaways |
+- [📌 Opening](#-opening)
+- [📂 Project Folder Structure](#-project-folder-structure)
+- [1️⃣ Concepts: Floating IP, Keepalived, HAProxy](#1️⃣-concept-introduction-floating-ip-keepalived-and-haproxy)
+- [2️⃣ Architecture Explanation](#2️⃣-architecture-explanation)
+- [3️⃣ Evidence Screenshots](#3️⃣-evidence-screenshots)
+- [4️⃣ Benefits: Failover & Load Balancing](#4️⃣-benefits-scalability-failover--load-balancing)
+- [5️⃣ Complete Infrastructure List](#5️⃣-complete-infrastructure-list)
+- [🎯 Conclusion](#-conclusion)
 
-
+---
 
 ## 📌 Opening
 
@@ -28,14 +26,14 @@ To solve this problem, we need two things:
 This project combines three powerful technologies to achieve both:
 
 | Technology | Role |
-|||
+|------------|------|
 | **Keepalived** | Provides a **Floating (Virtual) IP** that automatically moves between servers |
 | **HAProxy** | Acts as a **Load Balancer** that distributes traffic across multiple web servers |
 | **Nginx** | Serves as the **Backend Web Servers** that handle user requests |
 
 Together, they create a **highly available, scalable, and fault-tolerant** system that can survive server failures and handle high traffic loads.
 
-
+---
 
 ## 📂 Project Folder Structure
 
@@ -64,11 +62,11 @@ keepalive-ip-floating-proxy/
 │   ├── 2-deploy-node-test.png      # Step 2: Test Nginx nodes
 │   └── 3-deploy-node-keepalived-haproxy.png  # Step 3: Deploy HAProxy + Keepalived
 │
-├── documentation.md                 # Full documentation (this file)
+├── documentation.md                 # Full documentation
 └── readme.md                        # You are here
 ```
 
-
+---
 
 ## 1️⃣ Concept Introduction: Floating IP, Keepalived, and HAProxy
 
@@ -87,7 +85,7 @@ In this project, the Floating IP is: **`192.168.50.200`**
 **Key Keepalived Concepts:**
 
 | Component | What It Does |
-|--|--|
+|-----------|--------------|
 | **MASTER** | The primary server that currently holds the Floating IP |
 | **BACKUP** | The standby server that waits to take over |
 | **VRRP Instance** | A group of servers sharing the same Virtual Router ID (51) |
@@ -111,14 +109,14 @@ In this project, the Floating IP is: **`192.168.50.200`**
 **Key HAProxy Concepts:**
 
 | Concept | What It Does |
-||--|
+|---------|--------------|
 | **Frontend** | The entry point where clients connect (port 8080) |
 | **Backend** | A pool of backend servers (3 Nginx nodes) |
 | **Round Robin** | Distributes requests equally to each server in turn |
 | **Health Check** | Automatically checks if a backend server is healthy every 2 seconds |
 | **Stats Dashboard** | Web UI to monitor traffic and server status (port 8404) |
 
-
+---
 
 ## 2️⃣ Architecture Explanation
 
@@ -198,7 +196,7 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 ### ⚙️ Key Configuration Settings
 
 | Component | Setting | Value | Purpose |
-|--||-||
+|-----------|---------|-------|---------|
 | **Keepalived MASTER** | State | MASTER | Primary server |
 | | Priority | 101 | Higher number = becomes MASTER |
 | **Keepalived BACKUP** | State | BACKUP | Standby server |
@@ -213,7 +211,7 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 | | Health Check | `GET /` HTTP | Checks if web server responds |
 | **Nginx Nodes** | Count | 3 servers | Ports 8081, 8082, 8083 |
 
-
+---
 
 ## 3️⃣ Evidence Screenshots
 
@@ -232,7 +230,7 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 
 **Purpose:** This is the first step—deploying the backend web servers that will serve content to users.
 
-
+---
 
 ### 📸 Screenshot 2: Testing Nginx Backend Nodes
 
@@ -247,7 +245,7 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 
 **Purpose:** This verifies that all backend servers are running and responding correctly before we add the load balancer.
 
-
+---
 
 ### 📸 Screenshot 3: Deploying Keepalived + HAProxy Cluster
 
@@ -264,7 +262,7 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 
 **Purpose:** This completes the full architecture. Now clients can access the application through the Floating IP `192.168.50.200:8080`, and traffic will be load balanced across all 3 Nginx nodes.
 
-
+---
 
 ## 4️⃣ Benefits: Scalability, Failover & Load Balancing
 
@@ -307,7 +305,7 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 **Benefits of Failover:**
 
 | Benefit | Description |
-||-|
+|---------|-------------|
 | ✅ **Zero Downtime** | Users never experience interruption—the failover happens in seconds |
 | ✅ **Automatic** | No human needs to log in and fix things—it happens by itself |
 | ✅ **Fast Recovery** | MASTER broadcasts every 1 second, so failure is detected quickly |
@@ -345,7 +343,7 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 **Benefits of Load Balancing:**
 
 | Benefit | Description |
-||-|
+|---------|-------------|
 | ✅ **Even Distribution** | Round Robin sends each new request to the next server in line |
 | ✅ **Horizontal Scaling** | Need more capacity? Just add another Nginx node line in haproxy.cfg |
 | ✅ **Health Checks** | HAProxy checks every 2 seconds. If a node is down, it's removed from the pool |
@@ -355,7 +353,7 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 ### 📊 Comparison: Without vs With This Architecture
 
 | Scenario | ❌ Without Architecture | ✅ With This Architecture |
-|-||--|
+|----------|------------------------|--------------------------|
 | **A server crashes** | Website is DOWN for hours until someone fixes it | ✅ Automatic failover in < 3 seconds |
 | **Traffic spike (100x normal)** | Server overloaded, users get "500 Error" or timeout | ✅ Traffic spread across 3 nodes |
 | **Need to update software** | Must take website offline (scheduled downtime) | ✅ Update nodes one at a time—no downtime |
@@ -363,14 +361,14 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 | **Single point of failure** | 1 server = 1 point of failure | ✅ 2 HAProxy + 3 Nginx = no single failure |
 | **Maintenance window** | Users cannot access during maintenance | ✅ Users never notice maintenance happening |
 
-
+---
 
 ## 5️⃣ Complete Infrastructure List
 
 ### 📋 All Containers
 
 | # | Component | Container Name | IP Address | Port(s) | Role |
-||--|||||
+|---|-----------|---------------|------------|---------|------|
 | 1 | **Keepalived-1** | keepalived_master | 10.10.0.10 | - | VRRP MASTER (Priority: 101) |
 | 2 | **HAProxy-1** | haproxy_master | 10.10.0.11 | 8080, 8404 | Load Balancer (Primary) |
 | 3 | **Keepalived-2** | keepalived_backup | 10.10.0.20 | - | VRRP BACKUP (Priority: 100) |
@@ -380,11 +378,17 @@ Step 7: Response travels back through HAProxy → Keepalived → Client
 | 7 | **Nginx Node 3** | nginx_node3 | - | 8083 | Backend Web Server |
 | - | **Floating VIP** | - | **192.168.50.200** | 8080 | Virtual IP for clients |
 
+### 🔐 VRRP Authentication
+
+| Parameter | Value |
+|-----------|-------|
+| Auth Type | PASS (Password Authentication) |
+| Auth Password | RahasiaC |
 
 ### 📈 Monitoring Dashboards
 
 | Service | URL | Description |
-||--|-|
+|---------|-----|-------------|
 | HAProxy Stats (Master) | http://localhost:8404 | Real-time traffic monitor for primary |
 | HAProxy Stats (Backup) | http://localhost:8405 | Real-time traffic monitor for backup |
 
@@ -427,14 +431,14 @@ docker start keepalived_master
 # 5. The MASTER (priority 101) will take back the VIP automatically
 ```
 
-
+---
 
 ## 🎯 Conclusion
 
 This project demonstrates a **production-ready architecture** that solves two critical problems:
 
 | Problem | Solution | Technology |
-||-||
+|---------|----------|------------|
 | **Single Point of Failure** | High Availability with automatic failover | Keepalived + VRRP |
 | **Server Overload** | Load balancing across multiple servers | HAProxy + Nginx |
 
@@ -447,3 +451,4 @@ This project demonstrates a **production-ready architecture** that solves two cr
 - ✅ The entire system runs in **Docker containers** for easy deployment
 
 This architecture is used in production by many companies to achieve **99.99% uptime** for their critical applications.
+
