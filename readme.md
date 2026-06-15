@@ -1,6 +1,17 @@
-# 🚀 Keepalived  High Availability & Load Balancing Architecture
+# 🚀 Keepalived + HAProxy: High Availability & Load Balancing Architecture
 
-![Architecture Diagram](design/aristektur.png)
+## 📑 Table of Contents
+
+| # | Section | Description |
+|---|---------|-------------|
+| 📌 | [Opening](#-opening) | Engaging introduction to the problem |
+| 📂 | [Project Folder Structure](#-project-folder-structure) | Directory tree explanation |
+| 1️⃣ | [Concepts: Floating IP, Keepalived, HAProxy](#1️⃣-concept-introduction-floating-ip-keepalived-and-haproxy) | Theory and terminology |
+| 2️⃣ | [Architecture Explanation](#2️⃣-architecture-explanation) | Full architecture with diagram |
+| 3️⃣ | [Evidence Screenshots](#3️⃣-evidence-screenshots) | Step-by-step deployment proof |
+| 4️⃣ | [Benefits: Failover & Load Balancing](#4️⃣-benefits-scalability-failover--load-balancing) | Scalability advantages |
+| 5️⃣ | [Complete Infrastructure List](#5️⃣-complete-infrastructure-list) | All containers, IPs, commands |
+| 🎯 | [Conclusion](#-conclusion) | Summary and key takeaways |
 
 ---
 
