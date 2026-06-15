@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  nginx_node1:
+    image: nginx:alpine
+    container_name: nginx_node1
+    ports:
+      - "8081:80" # Diakses dari luar lewat port 8081
+    # Perintah otomatis untuk menulis teks HTML penanda Node 1
+    command: /bin/sh -c "echo '<h1>Halo! Ini adalah Web Server dari NODE 1</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    restart: always
+
+  nginx_node2:
+    image: nginx:alpine
+    container_name: nginx_node2
+    ports:
+      - "8082:80" # Diakses dari luar lewat port 8082
+    command: /bin/sh -c "echo '<h1>Halo! Ini adalah Web Server dari NODE 2</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    restart: always
+
+  nginx_node3:
+    image: nginx:alpine
+    container_name: nginx_node3
+    ports:
+      - "8083:80" # Diakses dari luar lewat port 8083
+    command: /bin/sh -c "echo '<h1>Halo! Ini adalah Web Server dari NODE 3</h1>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    restart: always

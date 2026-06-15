@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  haproxy:
+    image: haproxy:2.8
+    container_name: haproxy_master
+    ports:
+      - "8080:8080"
+      - "8404:8404"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    networks:
+      ha_cluster:
+        ipv4_address: 10.10.0.11
+    restart: always
+
+  keepalived:
+    image: osixia/keepalived:2.0.20
+    container_name: keepalived_master
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./keepalived.conf:/usr/local/etc/keepalived/keepalived.conf:rw
+    entrypoint: ["/bin/sh", "-c", "chmod 644 /usr/local/etc/keepalived/keepalived.conf; exec /container/tool/run"]
+    networks:
+      ha_cluster:
+        ipv4_address: 10.10.0.10
+    restart: always
+
+networks:
+  ha_cluster:
+    name: ha-cluster
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/16
