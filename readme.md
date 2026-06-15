@@ -1,4 +1,4 @@
-# 🚀 Keepalived + HAProxy: High Availability & Load Balancing Architecture
+# 🚀 Keepalived :High Availability & Load Balancing Architecture
 
 ## 📑 Table of Contents
 
